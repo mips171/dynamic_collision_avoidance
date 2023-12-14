@@ -1,5 +1,6 @@
 Simple 2D autonomous vehicle (AV) swarming and collision avoidance model.
 
+YouTube
 [![Video demo](https://img.youtube.com/vi/D_BXxHRrkSI/hqdefault.jpg)](https://youtu.be/D_BXxHRrkSI)
 
 ``` shell
