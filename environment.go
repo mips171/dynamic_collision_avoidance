@@ -24,7 +24,7 @@ func (env *Environment) Update() {
 		separationForce := env.Entities[i].Separation(env.Entities, env.Entities[i].Size*env.Entities[i].Size*4)
 
 		// Add obstacle avoidance
-		obstacleAvoidanceForce := env.Entities[i].AvoidObstacles(env.Obstacles, env.Entities[i].Size)
+		obstacleAvoidanceForce := env.Entities[i].AvoidObstacles(env.Obstacles, env.Entities[i].Size * env.Entities[i].Size)
 
 		// Combine the separation force with obstacle avoidance
 		totalForce := separationForce.Add(obstacleAvoidanceForce)
