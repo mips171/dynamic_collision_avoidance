@@ -35,7 +35,7 @@ func (e *Entity) LimitVelocity(maxSpeed float64) {
 
 func (e *Entity) InformOthers(entities []Entity) {
 	for i := range entities {
-		// later Entity can keep a table of entities near it, and use memoization to avoid checking all entities
+		// TODO later Entity can keep a table of entities near it, and use memoization to avoid checking all entities
 		if &entities[i] != e {
 			distance := e.Position.Distance(entities[i].Position)
 			reactionDistance := e.Size * e.Size * 4 // Adjusted for dynamic distance
@@ -91,6 +91,14 @@ func (e *Entity) MoveTowards(target Vector, envWidth, envHeight int) {
 	}
 
 	e.Position = e.Position.Add(e.Velocity)
+
+	// Constrain to screen bounds
+	if e.Position.X < 0 || e.Position.X > float64(envWidth) {
+		e.Velocity.X = -e.Velocity.X
+	}
+	if e.Position.Y < 0 || e.Position.Y > float64(envHeight) {
+		e.Velocity.Y = -e.Velocity.Y
+	}
 }
 
 // Separation is a force that pushes entities away from each other
@@ -135,7 +143,6 @@ func (e *Entity) AvoidObstacles(obstacles []Obstacle, safeDistance float64) Vect
 	var avoidanceForce Vector
 	for _, obstacle := range obstacles {
 		distance := e.Position.Distance(obstacle.Position)
-
 
 		if distance < safeDistance {
 			// Calculate a force vector that points away from the obstacle
